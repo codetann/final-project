@@ -55,7 +55,7 @@ export default function DesktopNav() {
           <Avatar size="sm" src={user.photo} />
         </MenuButton>
         <MenuList>
-          <MenuItem>Profile</MenuItem>
+          <MenuItem onClick={() => history.push("/profile")}>Profile</MenuItem>
           <MenuItem>Settings</MenuItem>
           <MenuItem color="red.400" fontWeight="bold" onClick={logout}>
             Sign Out

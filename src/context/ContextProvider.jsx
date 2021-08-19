@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
 import io from "socket.io-client";
+import { useNotification } from "../hooks";
 
 const AppContext = createContext(null);
 
@@ -10,9 +11,43 @@ export const useAppContext = () => useContext(AppContext);
 export default function ContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [socket, setSocket] = useState(null);
+  const [socketId, setSocketId] = useState(null);
+  const [room, setRoom] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(null);
+  const [details, setDetails] = useState(null);
+  const [members, setMembers] = useState(null);
+  const { notify } = useNotification();
 
+  // initialize socket.io
   useEffect(() => {
-    if (user && !socket) setSocket(io("http://localhost:8050"));
+    if (user && !socket) {
+      // create socket on user login/register
+      const webSocket = io("http://localhost:8050");
+      // set global context socket
+      setSocket(webSocket);
+
+      webSocket.on("new:join-room", (data) => {
+        setMembers(data.members);
+      });
+      webSocket.on("new:quit-room", (data) => {
+        setMembers([]);
+        setRoom(null);
+        setSocketId(null);
+        notify({
+          title: "Error",
+          description: data.message,
+          status: "error",
+        });
+      });
+      // set error handling for socket
+      webSocket.on("error:all", (res) => {
+        notify({
+          title: "Error",
+          description: res,
+          status: "error",
+        });
+      });
+    }
   }, [user]);
 
   const store = {
@@ -20,6 +55,16 @@ export default function ContextProvider({ children }) {
     user,
     socket,
     setSocket,
+    room,
+    setRoom,
+    members,
+    setMembers,
+    details,
+    setDetails,
+    isAdmin,
+    setIsAdmin,
+    socketId,
+    setSocketId,
   };
 
   return <AppContext.Provider value={store}>{children}</AppContext.Provider>;

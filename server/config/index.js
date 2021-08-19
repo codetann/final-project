@@ -3,7 +3,6 @@ import cors from "cors";
 import socket from "socket.io";
 import express from "express";
 import { log } from "../utils";
-import { auth } from "../middleware";
 import { startSockets } from "../controllers";
 import { setRoutes, setAuthRoutes } from "../routes";
 import http from "http";
@@ -15,7 +14,6 @@ const server = http.createServer(app);
 const authServer = express();
 
 // middleware
-app.use(auth);
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../build")));

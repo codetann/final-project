@@ -10,6 +10,7 @@ export function Layout({ children }) {
       minH="100vh"
       align="center"
       justify="center"
+      spacing="2rem"
       p={["2rem 1rem", "2rem 1rem", "2rem 2rem", "2rem 6rem", "2rem 8rem"]}
     >
       {children}

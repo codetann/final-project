@@ -1,10 +1,13 @@
 import React from "react";
 import { Button, useBreakpointValue } from "@chakra-ui/react";
 
-export const NavLink = ({ link, location, history, ...rest }) => {
+export const NavLink = ({ link, location, history, onClick }) => {
   const active = link.path === location.pathname;
   const type = useBreakpointValue({ base: "mobile", md: "desktop" });
-  const handleClick = () => history.push(link.path);
+  const handleClick = () => {
+    onClick();
+    history.push(link.path);
+  };
 
   return (
     <>

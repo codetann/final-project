@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 
 export default function LoginForm() {
   const { login } = useAuth();
+  const history = useHistory();
   const [email, updateEmail] = useInput("");
   const [password, updatePassword] = useInput("");
   const { isDisabled, validateValues } = useButton(false);
@@ -31,7 +32,11 @@ export default function LoginForm() {
         <Heading>Login to your account</Heading>
         <HStack spacing=".4rem">
           <Text>or</Text>
-          <Text color="purple.600" cursor="pointer">
+          <Text
+            color="purple.600"
+            cursor="pointer"
+            onClick={() => history.push("/register")}
+          >
             create an account
           </Text>
         </HStack>

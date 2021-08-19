@@ -8,7 +8,7 @@ import {
   VStack,
   FormLabel,
 } from "@chakra-ui/react";
-import { NumberInput } from "./";
+import { NumberInput } from "./NumberInput";
 
 export function SliderInput({ onChange, label }) {
   const [value, setValue] = useState(5);
@@ -27,7 +27,7 @@ export function SliderInput({ onChange, label }) {
         <NumberInput
           maxW="100px"
           mr="1rem"
-          onChange={onchange}
+          onChange={onChange}
           value={value}
           max={25}
         />

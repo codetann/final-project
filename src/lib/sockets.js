@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useAppContext } from "../context/ContextProvider";
+import { useNotification } from "../hooks/useNotification";
 
 // class WebSocket {
 //   constructor(url) {
@@ -19,10 +21,65 @@ import { useAppContext } from "../context/ContextProvider";
 // const webSocket = new WebSocket("http://localhost:8050");
 
 export const useSockets = () => {
-  const { socket } = useAppContext();
+  const {
+    socket,
+    setRoom,
+    room,
+    members,
+    setMembers,
+    details,
+    setDetails,
+    isAdmin,
+    setIsAdmin,
+    setSocketId,
+    socketId,
+  } = useAppContext();
 
   const emit = (msg, data) => socket.emit(msg, data);
   const on = (msg, callback) => socket.on(msg, (data) => callback(data));
 
-  return { emit, on };
+  const createRoom = (data) => {
+    setIsAdmin(true);
+    setDetails(data.details);
+    setRoom(data.room);
+    setMembers(data.members);
+    setSocketId(data.socket_id);
+  };
+
+  const joinRoom = (data) => {
+    setRoom(data.room);
+    setMembers(data.members);
+    setSocketId(data.socket_id);
+  };
+
+  const updateRoom = (data) => [setMembers(data.members)];
+
+  const leaveRoom = () => {
+    setRoom(null);
+    setMembers([]);
+    setSocketId(null);
+  };
+
+  const quitRoom = () => {
+    setRoom(null);
+    setMembers([]);
+    setSocketId(null);
+    setIsAdmin(null);
+    setDetails(null);
+  };
+
+  return {
+    emit,
+    on,
+    isAdmin,
+    room,
+    members,
+    createRoom,
+    joinRoom,
+    details,
+    updateRoom,
+    leaveRoom,
+    socketId,
+    quitRoom,
+  };
 };

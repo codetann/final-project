@@ -3,11 +3,12 @@ import { Button as CButton } from "@chakra-ui/react";
 
 export function Button({
   text,
-  onToggle,
+  variant = "solid",
   isFull = false,
   isDisabled = false,
   onClick,
   onSubmit,
+  colorScheme = "purple",
   type,
 }) {
   const width = isFull ? "100%" : "auto";
@@ -15,11 +16,12 @@ export function Button({
   return (
     <CButton
       w={width}
-      colorScheme="purple"
+      colorScheme={colorScheme}
       isDisabled={isDisabled}
       onSubmit={onSubmit}
       onClick={onClick}
       type={type}
+      variant={variant}
     >
       {text}
     </CButton>

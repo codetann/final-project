@@ -85,6 +85,7 @@ export default function MobileNav() {
                 link={link}
                 location={location}
                 history={history}
+                onClick={onToggle}
               />
             ))}
           </VStack>
@@ -107,6 +108,10 @@ export default function MobileNav() {
               w="100%"
               alignItems="center"
               justifyContent="flex-start"
+              onClick={() => {
+                onToggle();
+                history.push("/profile");
+              }}
             >
               Profile
             </Button>

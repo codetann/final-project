@@ -16,7 +16,7 @@ export function NumberInput({
   isFull = false,
   ...rest
 }) {
-  const handleChange = (value) => onChange(value);
+  const handleChange = (v) => onChange(v);
 
   return (
     <VStack w={isFull ? "100%" : "auto"}>

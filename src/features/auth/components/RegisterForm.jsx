@@ -6,6 +6,7 @@ import { Logo } from "../../../components/Elements";
 import { Button, Switch } from "../../../components/Elements";
 import { Form, FormInput, FormRow } from "../../../components/Form";
 import { Heading, Text, HStack, VStack } from "@chakra-ui/react";
+import { useHistory } from "react-router-dom";
 
 export default function RegisterForm() {
   const [first, updateFirst] = useInput("");
@@ -14,6 +15,7 @@ export default function RegisterForm() {
   const [password, updatePassword] = useInput("");
   const [confirm, updateConfirm] = useInput("");
   const { register } = useAuth();
+  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +30,11 @@ export default function RegisterForm() {
         <Heading textAlign="center">Sign up for a free account</Heading>
         <HStack spacing=".4rem">
           <Text>already have an account?</Text>
-          <Text cursor="pointer" color="purple.600">
+          <Text
+            cursor="pointer"
+            color="purple.600"
+            onClick={() => history.push("/login")}
+          >
             Login
           </Text>
         </HStack>

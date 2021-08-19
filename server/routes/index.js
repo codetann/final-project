@@ -1,8 +1,9 @@
 import { userController } from "../controllers";
+import { auth } from "../middleware";
 
 const setRoutes = (server) => {
   // UPDATE ROUTES
-  server.post("/api/update/user", userController.updateInfo);
+  server.post("/api/update/user", auth, userController.updateInfo);
 };
 
 const setAuthRoutes = (server) => {

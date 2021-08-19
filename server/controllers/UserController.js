@@ -16,7 +16,7 @@ class UserController {
     // login user
     const details = await this.service.login(req.body);
     // send details
-    res.status(details.statusCode).send(details);
+    res.status(details.statusCode).json(details);
   }
 
   async register(req, res) {
@@ -27,8 +27,9 @@ class UserController {
   }
 
   async updateInfo(req, res) {
-    // deconstruct response body
-    const { selectors, data } = req.body;
+    // deconstruct response body and user
+    const selectors = { email: req.user.email };
+    const { data } = req.body;
     // update user info
     const details = await this.service.updateInfo(selectors, data);
     // send details

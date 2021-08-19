@@ -2,12 +2,15 @@ import {
   loginWithEmailPassword,
   registerWithEmailPassword,
 } from "../features/auth/api";
+
 import { storage } from "../utils/storage";
 import { useHistory } from "react-router-dom";
+import { useNotification } from "../hooks";
 import { useAppContext } from "../context/ContextProvider";
 
 export const useAuth = () => {
   // global app context
+  const { notify } = useNotification();
   const { user, setUser } = useAppContext();
   const history = useHistory();
 
@@ -15,27 +18,43 @@ export const useAuth = () => {
     // validate values
     if (!email || !password) return;
     // send user details to server for details via axios post
-    const { data, tokens, error } = await loginWithEmailPassword(
-      email,
-      password
-    );
-    // set users information
-    setUser(data);
-    // set auth tokens
-    storage.setTokens(tokens);
-    if (!error) history.push("/dashboard");
+    try {
+      const { data, tokens } = await loginWithEmailPassword(email, password);
+      // set users information
+      setUser(data);
+      // set auth tokens
+      storage.setTokens(tokens);
+      // send user to dashboard
+      history.push("/dashboard");
+    } catch (error) {
+      console.log(error);
+      notify({
+        title: "Error",
+        description: "Email or Password are incorrect",
+        status: "error",
+      });
+    }
   };
 
   const register = async (formData) => {
     // validate values
     if (!formData) return;
-    // send user details to server for details via axios post
-    const { data, tokens, error } = await registerWithEmailPassword(formData);
-    // set users information
-    setUser(data);
-    // set auth tokens
-    storage.setTokens(tokens);
-    if (!error) history.push("/dashboard");
+    try {
+      // send user details to server for details via axios post
+      const { data, tokens } = await registerWithEmailPassword(formData);
+      // set users information
+      setUser(data);
+      // set auth tokens
+      storage.setTokens(tokens);
+      // send user to dashboard
+      history.push("/dashboard");
+    } catch (error) {
+      notify({
+        title: "Error",
+        description: "Email already in use",
+        status: "error",
+      });
+    }
   };
 
   const logout = () => {
