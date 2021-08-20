@@ -1,4 +1,5 @@
 import { UserModel } from "../models/Users";
+import { yelp } from "../utils";
 import UserService from "../services/UserService";
 
 // create instance of UserService
@@ -27,13 +28,19 @@ class UserController {
   }
 
   async updateInfo(req, res) {
+    console.log(req.user);
     // deconstruct response body and user
-    const selectors = { email: req.user.email };
+    const selectors = { email: req.user?.email || req.user };
     const { data } = req.body;
     // update user info
     const details = await this.service.updateInfo(selectors, data);
     // send details
     res.status(details.statusCode).json(details);
+  }
+
+  async nearby(req, res) {
+    const businesses = await yelp.test();
+    res.status(200).json(businesses);
   }
 }
 

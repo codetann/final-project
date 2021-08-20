@@ -6,7 +6,8 @@ import { useSockets } from "../../../lib/sockets";
 import { useHistory } from "react-router-dom";
 
 export function AdminView({ members }) {
-  const { emit, on, quitRoom, socketId, room } = useSockets();
+  const { emit, on, quitRoom, socketId, room, details, startGame } =
+    useSockets();
   const history = useHistory();
 
   const handleQuit = (e) => {
@@ -16,6 +17,16 @@ export function AdminView({ members }) {
     on("success:quit-room", () => {
       quitRoom();
       history.push("/dashboard");
+    });
+  };
+
+  const handleStart = (e) => {
+    e.preventDefault();
+
+    emit("start-room", { details, room });
+    on("new:start-room", (data) => {
+      startGame(data);
+      history.push("/game");
     });
   };
   return (
@@ -42,7 +53,7 @@ export function AdminView({ members }) {
           text="Quit"
           onClick={handleQuit}
         />
-        <Button variant="solid" isFull text="Start" />
+        <Button variant="solid" isFull text="Start" onClick={handleStart} />
       </HStack>
     </VStack>
   );

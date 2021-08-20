@@ -14,6 +14,8 @@ import {
   Text,
   Box,
   useColorModeValue,
+  Fade,
+  Slide,
 } from "@chakra-ui/react";
 import { Logo } from "../Elements/Logo";
 import { HamburgerIcon, SmallCloseIcon } from "@chakra-ui/icons";
@@ -70,13 +72,26 @@ export default function MobileNav() {
       </HStack>
 
       {/* Nav Links */}
-      <Collapse in={isOpen} zIndex="10">
+      <Slide
+        in={isOpen}
+        zIndex="10"
+        animateOpacity
+        unmountOnExit
+        direction="left"
+        style={{
+          paddingTop: "4rem",
+          background: "#171C27",
+          height: "100vh",
+          width: "100vw",
+        }}
+      >
         <VStack
           w="100vw"
           padding="1rem"
           spacing="1rem"
           zIndex="10"
           borderRadius="2rem"
+          minH="100vh"
         >
           <VStack w="100%" zIndex="10">
             {Links.map((link) => (
@@ -137,14 +152,7 @@ export default function MobileNav() {
             </Button>
           </VStack>
         </VStack>
-        <Box
-          h="100vh"
-          w="100vw"
-          position="fixed"
-          bg="blackAlpha.800"
-          backdropFilter="blur(2px)"
-        ></Box>
-      </Collapse>
+      </Slide>
     </VStack>
   );
 }

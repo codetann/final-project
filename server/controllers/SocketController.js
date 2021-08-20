@@ -1,6 +1,7 @@
 import { SocketModel } from "../models/Sockets";
 import SocketService from "../services/SocketService";
 import { log } from "../utils";
+import { yelp } from "../utils";
 
 const socketService = new SocketService(SocketModel);
 
@@ -14,6 +15,8 @@ class SocketController {
     this.socket.on("create-room", (data) => this.createRoom(data));
     this.socket.on("leave-room", (data) => this.leaveRoom(data));
     this.socket.on("quit-room", (data) => this.quitRoom(data));
+    this.socket.on("start-room", (data) => this.startRoom(data));
+    this.socket.on("end-room", (data) => this.endRoom(data));
     this.socket.on("disconnect", () => this.disconnect());
   }
 
@@ -93,6 +96,21 @@ class SocketController {
     } else {
       console.log(details.members);
       this._emit("error:all", details.message);
+    }
+  }
+
+  async startRoom(data) {
+    // make api call to get businesses
+    const businesses = await yelp.test();
+    // emit details to all users in room
+    this._emitAll(data.room, "new:start-room", businesses);
+  }
+
+  async endRoom(data) {
+    // check for endgame
+    const result = await this.service.end(data);
+    if (!result.error) {
+      this._emitAll(data.room, "new:end-room", { results: result.scores });
     }
   }
 

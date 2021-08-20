@@ -24,7 +24,7 @@ export default function DesktopNav() {
   const history = useHistory();
   const location = useLocation();
   const { user, logout } = useAuth();
-  const bg = useColorModeValue("white", "blackAlpha.100");
+  const bg = useColorModeValue("white", "#171C27");
 
   return (
     <HStack
@@ -35,6 +35,7 @@ export default function DesktopNav() {
       top="0"
       p="1rem"
       bg={bg}
+      zIndex="5"
     >
       <Logo />
       {/* Nav Links */}

@@ -5,7 +5,7 @@ export const NavLink = ({ link, location, history, onClick }) => {
   const active = link.path === location.pathname;
   const type = useBreakpointValue({ base: "mobile", md: "desktop" });
   const handleClick = () => {
-    onClick();
+    onClick && onClick();
     history.push(link.path);
   };
 

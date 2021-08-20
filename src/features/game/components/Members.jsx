@@ -1,5 +1,15 @@
 import React from "react";
-import { VStack, HStack, Heading, useColorModeValue } from "@chakra-ui/react";
+import {
+  VStack,
+  HStack,
+  Heading,
+  useColorModeValue,
+  Fade,
+} from "@chakra-ui/react";
+import {
+  FadeTransition,
+  SlideTransition,
+} from "../../../components/Animations";
 
 export function Members({ members }) {
   const bg = useColorModeValue("white", "whiteAlpha.100");

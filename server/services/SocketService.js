@@ -1,4 +1,5 @@
 import { generateID } from "../utils/random";
+import { results } from "../utils";
 import Service from "./Service";
 
 class SocketService extends Service {
@@ -8,6 +9,7 @@ class SocketService extends Service {
     this.create = this.create.bind(this);
     this.leave = this.leave.bind(this);
     this.quit = this.quit.bind(this);
+    this.end = this.end.bind(this);
   }
 
   async join(data) {
@@ -100,6 +102,31 @@ class SocketService extends Service {
       return {
         error: true,
         message: "Admin has left the room",
+      };
+    }
+  }
+
+  async end(data) {
+    try {
+      // get all members
+      const members = await this.getAll({ room: data.room });
+      // add player results
+      results.insert(data);
+      // get result
+      const result = results.getAll(data.room);
+      if (members.length !== result.length) throw new Error("error");
+      // add up all scores
+      const scores = results.total(data.room);
+      //console.log(scores);
+
+      return {
+        error: false,
+        scores,
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        error: true,
       };
     }
   }

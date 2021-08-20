@@ -5,15 +5,16 @@ class FavoriteService extends Service {
     super(model);
     this.add = this.add.bind(this);
     this.remove = this.remove.bind(this);
-    this.fetch = this.fetch.bind(this);
+    this.all = this.all.bind(this);
   }
 
-  async add(data) {
+  async add(user, business) {
     try {
+      business.user_id = user;
       // add new favorite to database
-      await this.insert(data);
+      await this.insert(business);
       // fetch updated list of favorites
-      const favorites = await this.getAll({ user_id: data.user_id });
+      const favorites = await this.getAll({ user_id: user });
       // return favorites
       return {
         error: false,
@@ -21,6 +22,7 @@ class FavoriteService extends Service {
         data: favorites,
       };
     } catch (error) {
+      console.log(error);
       // return error details
       return {
         error: true,
@@ -30,12 +32,12 @@ class FavoriteService extends Service {
     }
   }
 
-  async remove(selectors) {
+  async remove(user, business) {
     try {
       // remove favorite from database
-      await this.delete(selectors);
+      await this.delete({ user_id: user.id, yelp_id: business.yelp_id });
       // fetch updated list of favorites
-      const favorites = await this.getAll({ user_id: selectors.id });
+      const favorites = await this.getAll({ user_id: user.id });
       // return success details
       return {
         error: false,
@@ -52,10 +54,10 @@ class FavoriteService extends Service {
     }
   }
 
-  async fetch(selectors) {
+  async all(id) {
     try {
       // fetch updated list of favorites
-      const favorites = await this.getAll({ user_id: selectors.id });
+      const favorites = await this.getAll({ user_id: id });
       // return success details
       return {
         error: false,

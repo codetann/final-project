@@ -7,6 +7,7 @@ import { Button, Switch } from "../../../components/Elements";
 import { Form, FormInput, FormRow } from "../../../components/Form";
 import { Heading, Text, HStack, VStack } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
+import { FadeTransition } from "../../../components/Animations";
 
 export default function RegisterForm() {
   const [first, updateFirst] = useInput("");
@@ -25,63 +26,66 @@ export default function RegisterForm() {
 
   return (
     <Layout>
-      <Logo />
-      <VStack>
-        <Heading textAlign="center">Sign up for a free account</Heading>
-        <HStack spacing=".4rem">
-          <Text>already have an account?</Text>
-          <Text
-            cursor="pointer"
-            color="purple.600"
-            onClick={() => history.push("/login")}
-          >
-            Login
-          </Text>
-        </HStack>
-      </VStack>
+      <FadeTransition>
+        <Logo />
+        <VStack mb="2rem">
+          <Heading textAlign="center">Sign up for a free account</Heading>
+          <HStack spacing=".4rem">
+            <Text>already have an account?</Text>
+            <Text
+              cursor="pointer"
+              color="purple.600"
+              onClick={() => history.push("/login")}
+            >
+              Login
+            </Text>
+          </HStack>
+        </VStack>
 
-      <Form onSubmit={handleSubmit}>
-        <FormRow>
+        <Form onSubmit={handleSubmit}>
+          <FormRow>
+            <FormInput
+              type="text"
+              label="First"
+              isRequired
+              onChange={updateFirst}
+            />
+            <FormInput
+              type="text"
+              label="Last"
+              isRequired
+              onChange={updateLast}
+            />
+          </FormRow>
           <FormInput
-            type="text"
-            label="First"
+            type="email"
+            label="Email"
             isRequired
-            onChange={updateFirst}
+            onChange={updateEmail}
           />
           <FormInput
-            type="text"
-            label="Last"
+            type="password"
+            label="Password"
             isRequired
-            onChange={updateLast}
+            onChange={updatePassword}
           />
-        </FormRow>
-        <FormInput
-          type="email"
-          label="Email"
-          isRequired
-          onChange={updateEmail}
-        />
-        <FormInput
-          type="password"
-          label="Password"
-          isRequired
-          onChange={updatePassword}
-        />
-        <FormInput
-          type="password"
-          label="Confirm Password"
-          isRequired
-          onChange={updateConfirm}
-        />
-        <HStack w="100%" spacing="1rem">
-          <Switch isRequired colorScheme="purple" />
-          <Text size="xs">
-            By Selecting this, you agree to the Privacy Policy and Cookie Policy
-          </Text>
-        </HStack>
+          <FormInput
+            type="password"
+            label="Confirm Password"
+            isRequired
+            onChange={updateConfirm}
+          />
+          <HStack w="100%" spacing="1rem">
+            <Switch isRequired colorScheme="purple" />
+            <Text size="xs">
+              By Selecting this, you agree to the Privacy Policy and Cookie
+              Policy
+            </Text>
+          </HStack>
 
-        <Button type="submit" isFull text="Signup" />
-      </Form>
+          <Button type="submit" isFull text="Signup" />
+        </Form>
+      </FadeTransition>
     </Layout>
   );
 }

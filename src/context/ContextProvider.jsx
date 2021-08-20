@@ -9,13 +9,20 @@ const AppContext = createContext(null);
 export const useAppContext = () => useContext(AppContext);
 
 export default function ContextProvider({ children }) {
+  // user state
   const [user, setUser] = useState(null);
+  // socket state
   const [socket, setSocket] = useState(null);
   const [socketId, setSocketId] = useState(null);
   const [room, setRoom] = useState(null);
   const [isAdmin, setIsAdmin] = useState(null);
   const [details, setDetails] = useState(null);
+  const [businesses, setBusinesses] = useState(null);
   const [members, setMembers] = useState(null);
+  // api data
+  const [nearby, setNearby] = useState(null);
+  const [favorites, setFavorites] = useState(null);
+  // hooks
   const { notify } = useNotification();
 
   // initialize socket.io
@@ -39,6 +46,7 @@ export default function ContextProvider({ children }) {
           status: "error",
         });
       });
+
       // set error handling for socket
       webSocket.on("error:all", (res) => {
         notify({
@@ -65,6 +73,12 @@ export default function ContextProvider({ children }) {
     setIsAdmin,
     socketId,
     setSocketId,
+    setBusinesses,
+    businesses,
+    nearby,
+    setNearby,
+    favorites,
+    setFavorites,
   };
 
   return <AppContext.Provider value={store}>{children}</AppContext.Provider>;

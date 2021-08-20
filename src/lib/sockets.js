@@ -33,6 +33,8 @@ export const useSockets = () => {
     setIsAdmin,
     setSocketId,
     socketId,
+    businesses,
+    setBusinesses,
   } = useAppContext();
 
   const emit = (msg, data) => socket.emit(msg, data);
@@ -68,6 +70,10 @@ export const useSockets = () => {
     setDetails(null);
   };
 
+  const startGame = (data) => {
+    setBusinesses(data);
+  };
+
   return {
     emit,
     on,
@@ -81,5 +87,6 @@ export const useSockets = () => {
     leaveRoom,
     socketId,
     quitRoom,
+    startGame,
   };
 };

@@ -28,7 +28,7 @@ class UserService extends Service {
       const match = await bcrypt.compare(password, item.password);
       if (!match) throw new Error("Unable to log in user");
       // generate tokens
-      const tokens = new JsonWebToken({ email });
+      const tokens = new JsonWebToken({ email: item.email, id: item.id });
       // return success details
       return {
         error: false,
@@ -60,7 +60,7 @@ class UserService extends Service {
       // insert new user into database
       const user = await this.insert(data);
       // generate tokens
-      const tokens = new JsonWebToken(data.email);
+      const tokens = new JsonWebToken({ email: user.email, id: user.id });
       // return success details
       return {
         error: false,

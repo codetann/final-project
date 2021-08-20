@@ -5,21 +5,29 @@ import { Members } from "./Members";
 import { useSockets } from "../../../lib/sockets";
 import { useAuth } from "../../../lib/auth";
 import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
 
 export function MemberView({ members }) {
-  const { emit, socketId, on, leaveRoom, room } = useSockets();
+  const { emit, socketId, on, leaveRoom, room, startGame } = useSockets();
   const history = useHistory();
 
+  useEffect(() => {
+    on("new:start-room", (data) => {
+      startGame(data);
+      history.push("/game");
+    });
+
+    on("success:leave-room", () => {
+      leaveRoom();
+      history.push("/dashboard");
+    });
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!socketId) return history.push("/dashboard");
 
     emit("leave-room", { socket_id: socketId, room });
-    on("success:leave-room", () => {
-      leaveRoom();
-      history.push("/dashboard");
-    });
   };
 
   return (
