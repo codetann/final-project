@@ -1,11 +1,28 @@
 import React from "react";
-import { Stack, Button, Heading, VStack, Text } from "@chakra-ui/react";
+import {
+  Stack,
+  Button,
+  Heading,
+  VStack,
+  Text,
+  Spacer,
+  Image,
+} from "@chakra-ui/react";
+import RatingSvg from "./rating-feedback.svg";
 
 export default function Hero() {
   return (
-    <VStack justify="center" align="center" maxW="2xl" spacing="2rem" h="68vh">
+    // <Stack
+    //   w="100%"
+    //   direction={["column", "row"]}
+    //   padding={["0 2rem", "0 8rem"]}
+    // >
+    <VStack justify="center" align="center" maxW="2xl" spacing="3rem" h="68vh">
       <Heading textAlign="center" size="3xl">
-        Dinning out, made simple!
+        Dinning out, made{" "}
+        <Heading size="3xl" color="purple.300" fontStyle="italic">
+          simple!
+        </Heading>
       </Heading>
       <Text textAlign="center">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod

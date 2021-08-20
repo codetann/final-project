@@ -36,7 +36,7 @@ export default function LoginForm() {
           <HStack spacing=".4rem">
             <Text>or</Text>
             <Text
-              color="purple.600"
+              color="purple.300"
               cursor="pointer"
               onClick={() => history.push("/register")}
             >

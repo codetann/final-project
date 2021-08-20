@@ -37,8 +37,18 @@ export function Game() {
         <>
           <Business business={business} />
           <LayoutButtons>
-            <IconButton colorScheme="red" icon={CloseIcon} onClick={onNo} />
-            <IconButton colorScheme="green" icon={CheckIcon} onClick={onYes} />
+            <IconButton
+              size="lg"
+              colorScheme="red"
+              icon={<CloseIcon />}
+              onClick={onNo}
+            />
+            <IconButton
+              size="lg"
+              colorScheme="green"
+              icon={<CheckIcon />}
+              onClick={onYes}
+            />
           </LayoutButtons>
         </>
       )}

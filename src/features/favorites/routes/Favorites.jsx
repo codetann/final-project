@@ -9,7 +9,7 @@ export function Favorites() {
 
   return (
     <FadeTransition>
-      <Heading pb="2rem">Favorites</Heading>
+      <Heading>Favorites</Heading>
       {(!favorites || favorites?.length < 1) && <div>No favorites found</div>}
       {favorites && (
         <SimpleGrid columns={[1, 1, 1, 2, 3]} spacing={"2rem"}>

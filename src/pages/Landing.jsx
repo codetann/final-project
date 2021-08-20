@@ -9,7 +9,7 @@ export function Landing() {
     <LandingLayout>
       <LandingNav />
       <Hero />
-      <SiteFeatures />
+      {/* <SiteFeatures /> */}
     </LandingLayout>
   );
 }

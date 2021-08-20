@@ -20,7 +20,7 @@ export function Business({ business }) {
         <Image
           src={business.image}
           w="100%"
-          h="500px"
+          h={["300px", "500px"]}
           objectFit="cover"
           borderRadius=".5rem"
           shadow="lg"

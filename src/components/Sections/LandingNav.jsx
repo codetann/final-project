@@ -12,7 +12,7 @@ export default function LandingNav() {
     <HStack w="100%">
       <HStack spacing="1rem">
         <IconButton
-          color="purple.600"
+          color="purple.300"
           fontSize="1.5rem"
           icon={<FaHamburger />}
         />

@@ -93,7 +93,7 @@ export default function MobileNav() {
           borderRadius="2rem"
           minH="100vh"
         >
-          <VStack w="100%" zIndex="10">
+          <VStack w="100%">
             {Links.map((link) => (
               <NavLink
                 key={link.id}

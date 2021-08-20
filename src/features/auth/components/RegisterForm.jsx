@@ -34,7 +34,7 @@ export default function RegisterForm() {
             <Text>already have an account?</Text>
             <Text
               cursor="pointer"
-              color="purple.600"
+              color="purple.300"
               onClick={() => history.push("/login")}
             >
               Login
