@@ -4,7 +4,7 @@ An app that groups friends together who can't decide on where to eat. It introdu
 
 ## Tech Stack
 
-**Client:** React, Chakra UI
+**Client:** React, Chakra UI, Socket.io
 
 **Server:** Node, Express, Socket.io
 
