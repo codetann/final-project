@@ -21,7 +21,9 @@ Install though github
 
 ```bash
    git clone https://github.com/codetann/final-project.git
+   
    cd final-project
+   
    npm install
 ```
 
